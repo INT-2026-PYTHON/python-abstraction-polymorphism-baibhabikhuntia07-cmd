@@ -99,3 +99,68 @@ Explanation:
 =================================================
 
 """
+import math
+from abc import ABC, abstractmethod 
+
+class Shape(ABC):
+    def __init__(self, name):
+        self.name = name
+
+    @abstractmethod
+    def area(self):
+        pass
+
+    @abstractmethod
+    def perimeter(self):
+        pass
+
+class Circle(Shape):
+    def __init__(self, radius):
+        super().__init__("Circle")
+        self.radius = radius
+
+    def area(self):
+        return math.pi * self.radius ** 2
+
+    def perimeter(self):
+        return 2 * math.pi * self.radius
+
+class Rectangle(Shape):
+    def __init__(self, width, height):
+        super().__init__("Rectangle")
+        self.width = width
+        self.height = height
+
+    def area(self):
+        return self.width * self.height
+
+    def perimeter(self):
+        return 2 * (self.width + self.height)
+
+class Triangle(Shape):
+    def __init__(self, base, height, hypotenuse):
+        super().__init__("Triangle")
+        self.base = base
+        self.height = height
+        self.hypotenuse = hypotenuse
+
+    def area(self):
+        return 0.5 * self.base * self.height
+
+    def perimeter(self):
+        return self.base + self.height + self.hypotenuse
+# Driver code
+try:
+    shape = Shape("nope")
+except TypeError as e:
+    print("Cannot create Shape directly:")
+    print(f"   {e}")
+
+shapes = [
+    Circle(5),
+    Rectangle(4, 6),
+    Triangle(3, 4, 5),
+]
+
+for shape in shapes:
+    print(f"{shape.name:10} -> area={shape.area():.5f}, perimeter={shape.perimeter():.4f}") 
